@@ -15,6 +15,7 @@ class BackgroundChanger():
 			print(gsettings.set_string(self.KEY, "file://" + filename))
 			print(gsettings.get_string(self.KEY))
 			temp = Gtk.__dict__
+			print(gsettings.get_string(self.KEY))
 		elif(plat == 'Windows'):
 			import ctypes
 			SPI_SETDESKWALLPAPER = 20 
