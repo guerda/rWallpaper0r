@@ -18,9 +18,16 @@ def fetch_new_wallpaper_url():
 	for line in url:
 		data = data + line + "\n"
 	json_data = json.loads(data)
-	first_entry = json_data["data"]["children"][0]["data"]
-	wallpaper_url = first_entry["url"]
-	wallpaper_title = first_entry["title"]
+	i=0
+	entry = json_data["data"]["children"][i]["data"]
+	wallpaper_url = entry["url"]
+	print(wallpaper_url[-3:])
+	while wallpaper_url[-3:] <> "jpg" and wallpaper_url[-4:] <> "jpeg" and wallpaper_url[-3:] <> "png":
+		entry = json_data["data"]["children"][i]["data"]
+		wallpaper_url = entry["url"]
+		wallpaper_title = entry["title"]
+		print(wallpaper_url[-3:])
+		i=i+1
 	return [wallpaper_url, wallpaper_title]
 
 def fetch_new_wallpaper_data():
