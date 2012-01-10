@@ -14,7 +14,7 @@ class BackgroundChanger():
 			print(gsettings.get_string(self.KEY))
 			print(gsettings.set_string(self.KEY, "file://" + filename))
 			print(gsettings.get_string(self.KEY))
-			temp = Gtk.__dict__
+			Gtk.Window()
 			print(gsettings.get_string(self.KEY))
 		elif(plat == 'Windows'):
 			import ctypes
