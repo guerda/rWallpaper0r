@@ -37,5 +37,4 @@ class BackgroundChanger():
 			return 'Mac'
 
 if __name__ == "__main__":
-	#BackgroundChanger().change_background("/home/philip/Entwicklung/Python/rWallpaper0r/Eyes.jpg")
 	print(BackgroundChanger().detect_platform())
