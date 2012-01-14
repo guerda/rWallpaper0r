@@ -6,7 +6,7 @@ import mimetypes
 from os import path
 
 WALLPAPER_DIR=("%s/%s")%(path.expanduser("~"),'Bilder/rWallpaper0r/')
-reddit_url='http://www.reddit.com/r/wallpaper/top/.json?sort=top&t=day'
+reddit_url='http://www.reddit.com/r/wallpapers/top/.json?sort=top&t=day'
 opener = urllib2.build_opener()
 opener.addheaders = [('User-agent', 'rWallpaper0r/0.1')]
 mimetypes.init()
