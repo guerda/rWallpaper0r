@@ -16,6 +16,9 @@ class BackgroundChanger():
 			print(gsettings.get_string(self.KEY))
 			Gtk.Window()
 			print(gsettings.get_string(self.KEY))
+			gsettings = None
+			gsettings = Gio.Settings.new(self.SCHEMA)
+			print(gsettings.get_string(self.KEY))
 		elif(plat == 'Windows'):
 			import ctypes
 			SPI_SETDESKWALLPAPER = 20 
