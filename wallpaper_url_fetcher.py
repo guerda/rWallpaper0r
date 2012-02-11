@@ -41,7 +41,7 @@ def save_new_wallpaper():
 	wallpaper_data = fetch_new_wallpaper_url()
 	data = opener.open(wallpaper_data[0])
 	filename = str(wallpaper_data[1])
-	mime_type = data.info().gettype()
+	mime_type = data.info().get_content_maintype()
 	filename = filename.replace(" ", "_").replace("\"", "").replace("'","").replace(",","").replace(".","_").replace(":","_").replace("?","_")
 	extension = mimetypes.guess_extension(mime_type)
 	if(extension == ".jpe"):
