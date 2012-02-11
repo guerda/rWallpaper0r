@@ -10,12 +10,13 @@ class BackgroundChanger():
 		plat = self.detect_platform()
 		if(plat == 'Ubuntu'):
 			from gi.repository import Gtk, Gio
+			Gtk.Window()
 			gsettings = Gio.Settings.new(self.SCHEMA)
 			print(gsettings.get_string(self.KEY))
 			print(gsettings.set_string(self.KEY, "file://" + filename))
 			print(gsettings.get_string(self.KEY))
-			Gtk.Window()
 			print(gsettings.get_string(self.KEY))
+			Gtk.Window()
 			gsettings = None
 			gsettings = Gio.Settings.new(self.SCHEMA)
 			print(gsettings.get_string(self.KEY))
