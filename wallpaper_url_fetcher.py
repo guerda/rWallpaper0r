@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.2
 # -*- coding: utf-8 -*-
 import urllib.request, urllib.parse, urllib.error
 import json
