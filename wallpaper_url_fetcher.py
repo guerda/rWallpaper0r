@@ -4,9 +4,12 @@ import urllib.request, urllib.parse, urllib.error
 import json
 import mimetypes
 from os import path
+import os
 
 WALLPAPER_DIR=("%s/%s")%(path.expanduser("~"),'Bilder/rWallpaper0r/')
-# TODO check, if wallpaper dir exists. If not, create it.
+# check, if wallpaper dir exists. If not, create it.
+if not os.path.exists(WALLPAPER_DIR):
+	os.makedirs(WALLPAPER_DIR)
 reddit_url='http://www.reddit.com/r/wallpapers/top/.json?sort=top&t=day'
 opener = urllib.request.build_opener()
 opener.addheaders = [('User-agent', 'rWallpaper0r/0.1')]
@@ -46,6 +49,8 @@ def save_new_wallpaper():
 	extension = mimetypes.guess_extension(mime_type)
 	if(extension == ".jpe"):
 		extension = ".jpg"
+	elif(extension == None):
+		extension = ""
 	filename = "%s%s%s" % (WALLPAPER_DIR, filename, extension) 
 	local_file = open(filename, "wb")
 	local_file.write(data.read())
