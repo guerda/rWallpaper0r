@@ -1,9 +1,10 @@
 #!/usr/bin/python3.2
 # -*- coding: utf-8 -*-
-from wallpaper_url_fetcher import save_new_wallpaper
-from BackgroundChanger import BackgroundChanger
+from wallpaperfetcher import WallpaperFetcher
+from backgroundchanger import BackgroundChanger
 
-filename = save_new_wallpaper()
+wp_fetcher = WallpaperFetcher()
+filename = wp_fetcher.save_new_wallpaper()
 print(filename)
 
 changer = BackgroundChanger()
