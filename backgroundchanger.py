@@ -8,7 +8,7 @@ class BackgroundChanger():
 	
 	def change_background(self, filename):
 		plat = self.detect_platform()
-		if(plat == 'Ubuntu'):
+		if(plat == 'Ubuntu' or plat == 'Fedora'):
 			from gi.repository import Gtk, Gio
 			Gtk.Window()
 			gsettings = Gio.Settings.new(self.SCHEMA)
@@ -25,16 +25,15 @@ class BackgroundChanger():
 			SPI_SETDESKWALLPAPER = 20 
 			ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, filename , 0)
 		elif(plat == 'Mac'):
-			print('Not yet implemented')
+			print('Not yet implemented for Mac')
 		else:
-			print('Not yet implemented')
+			print('Not yet implemented for',plat)
 
 	def detect_platform(self):
 		sys = platform.system()
 		if(sys == 'Linux'):
 			dist = platform.linux_distribution()
-			if(dist[0]=='Ubuntu'):
-				return dist[0]
+			return dist[0]
 		elif(sys == 'Windows'):
 			return sys
 		elif(sys == 'Darwin'):

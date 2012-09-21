@@ -48,9 +48,11 @@ class WallpaperFetcher():
         data = self.opener.open(wallpaper_data[0])
         filename = str(wallpaper_data[1])
         mime_type = data.info().get_content_maintype()
-        filename = filename.replace(" ", "_").replace("\"", "")
-        filename = filename.replace("'","").replace(",","").replace(".","_")
-        filename = filename.replace(":","_").replace("?","_")
+        filename = filename.replace(" ", "").replace("\"", "")
+        filename = filename.replace("'","").replace(",","").replace(".","")
+        filename = filename.replace(":","").replace("?","")
+        filename = filename.replace("[","").replace("]","")
+        filename = filename.replace("(","").replace(")","")
         extension = mimetypes.guess_extension(mime_type)
         if(extension == ".jpe"):
             extension = ".jpg"
