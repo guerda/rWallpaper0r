@@ -20,6 +20,11 @@ class BackgroundChanger():
 			gsettings = None
 			gsettings = Gio.Settings.new(self.SCHEMA)
 			print(gsettings.get_string(self.KEY))
+			import os
+			latestlink = os.path.dirname(filename)+"/latest"
+			if os.path.islink(latestlink):
+				os.unlink(latestlink)
+			os.symlink(filename, latestlink)
 		elif(plat == 'Windows'):
 			import ctypes
 			SPI_SETDESKWALLPAPER = 20 
