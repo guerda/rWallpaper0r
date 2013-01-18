@@ -6,6 +6,7 @@ Description
 ---
 rWallpaper0r uses the fabulous community of [/r/wallpapers](http://reddit.com/r/wallpapers) to get a fresh and beautiful wallpaper directly on your desktop.
 It changes the wallpaper directly after it was downloaded.
+It features a NSFW (not suitable for work) filter, so that you are safe to use this application on your work pc. Just start it with the parameter `--nsfw-filter` and you are done!
 
 License
 ---
@@ -43,7 +44,6 @@ Roadmap
 I have a lot of ideas for the rWallpaper0r and here are some of them:
 - Fixing known issues (this point will always stay here ;) )
 - Implementing a GUI with progress bar and some configuration options
-- Adding a NSFW (Not Suitable For Work) filter
 - Adding a subreddit changer
 - Adding a source hint on the wallpaper, if preferred, so that the originator of the wallpaper is known
 
