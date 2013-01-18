@@ -8,11 +8,12 @@ import os
 
 class WallpaperFetcher():
     def __init__(self):
-        self.WALLPAPER_DIR=("%s/%s")%(path.expanduser("~"),'Bilder/rWallpaper0r/')
+        self.nsfw_filter = False
+        self.WALLPAPER_DIR = ("%s/%s")%(path.expanduser("~"),'Bilder/rWallpaper0r/')
         # check, if wallpaper dir exists. If not, create it.
         if not os.path.exists(self.WALLPAPER_DIR):
             os.makedirs(self.WALLPAPER_DIR)
-        self.reddit_url='http://www.reddit.com/r/wallpapers/top/.json?sort=top&t=day'
+        self.reddit_url = 'http://www.reddit.com/r/wallpapers/top/.json?sort=top&t=day'
         self.opener = urllib.request.build_opener()
         self.opener.addheaders = [('User-agent', 'rWallpaper0r/0.1')]
         mimetypes.init()
@@ -26,14 +27,22 @@ class WallpaperFetcher():
         entry = json_data["data"]["children"][i]["data"]
         wallpaper_url = entry["url"]
         wallpaper_title = entry["title"]
+        nsfw = entry["over_18"]
+        print(nsfw)
         print(wallpaper_url[-3:])
-        while wallpaper_url[-3:] != "jpg" and wallpaper_url[-4:] != "jpeg" \
+        self.nsfw_filter = True
+        while (self.nsfw_filter and nsfw) or wallpaper_url[-3:] != "jpg" and wallpaper_url[-4:] != "jpeg" \
                 and wallpaper_url[-3:] != "png":
             entry = json_data["data"]["children"][i]["data"]
             wallpaper_url = entry["url"]
             wallpaper_title = entry["title"]
+            nsfw = entry["over_18"]
             print(wallpaper_url[-3:])
+            print(i)
             i=i+1
+            if(i == 25):
+                print("No wallpaper found which matches (NSFW filter: %r)"%(self.nsfw_filter))
+                return [None, None]
         return [wallpaper_url, wallpaper_title]
 
     def fetch_new_wallpaper_data(self):
@@ -45,8 +54,9 @@ class WallpaperFetcher():
 
     def save_new_wallpaper(self):
         wallpaper_data = self.fetch_new_wallpaper_url()
-        data = self.opener.open(wallpaper_data[0])
         filename = str(wallpaper_data[1])
+        url = wallpaper_data[0]
+        data = self.opener.open(url)
         mime_type = data.info().get_content_maintype()
         filename = filename.replace(" ", "").replace("\"", "")
         filename = filename.replace("'","").replace(",","").replace(".","")
@@ -57,7 +67,7 @@ class WallpaperFetcher():
         if(extension == ".jpe"):
             extension = ".jpg"
         elif(extension == None):
-            extension = ""
+            extension = url[url.rfind("."):]
         filename = "%s%s%s" % (self.WALLPAPER_DIR, filename, extension) 
         local_file = open(filename, "wb")
         local_file.write(data.read())
@@ -66,4 +76,5 @@ class WallpaperFetcher():
 
 if __name__ == "__main__":
     fetcher = WallpaperFetcher()
+    fetcher.nsfw_filter = True
     print(fetcher.save_new_wallpaper())
