@@ -27,8 +27,12 @@ class BackgroundChanger():
 			os.symlink(filename, latestlink)
 		elif(plat == 'Windows'):
 			import ctypes
-			SPI_SETDESKWALLPAPER = 20 
-			ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, filename , 0)
+			# See http://msdn.microsoft.com/en-us/library/ms724947%28VS.85%29.aspx for details
+			SPI_SETDESKWALLPAPER = 0x0014 
+			cbuffer = ctypes.c_buffer(str.encode(filename))
+			result = ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 1,  cbuffer, 1)
+			if not result:
+				print('Failed to set Wallpaper')
 		elif(plat == 'Mac'):
 			print('Not yet implemented for Mac')
 		else:
@@ -43,6 +47,16 @@ class BackgroundChanger():
 			return sys
 		elif(sys == 'Darwin'):
 			return 'Mac'
+			
+	def set_random_background(self):
+		import glob
+		import random
+		from os import path
+		path = ("%s/%s")%(path.expanduser("~"),'Bilder/rWallpaper0r/') # TODO Externalize
+		files  = glob.glob(path+'\*')
+		choice = random.choice(files)
+		self.change_background(choice)
 
 if __name__ == "__main__":
 	print(BackgroundChanger().detect_platform())
+	BackgroundChanger().set_random_background()

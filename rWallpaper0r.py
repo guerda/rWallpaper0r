@@ -8,12 +8,19 @@ nsfw_filter = False
 if(len(sys.argv) > 1):
     nsfw_filter = "--nsfw-filter" in (arg.lower() for arg in sys.argv)
 
-wp_fetcher = WallpaperFetcher()
-wp_fetcher.nsfw_filter = nsfw_filter
-filename = wp_fetcher.save_new_wallpaper()
-print(filename)
+filename = None
+try:
+	wp_fetcher = WallpaperFetcher()
+	wp_fetcher.nsfw_filter = nsfw_filter
+	filename = wp_fetcher.save_new_wallpaper()
+	print(filename)
+except Exception as e:
+	print("Could not load Wallpaper: ",e)
 
 changer = BackgroundChanger()
-changer.change_background(filename)
+if(filename):
+	changer.change_background(filename)
+else:
+	changer.set_random_background()
 print("Done")
 
